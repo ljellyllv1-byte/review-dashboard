@@ -671,7 +671,9 @@
 
         // 加载初始数据
         function loadData() {
-            fetch('/review_dashboard_with_non_task.json')
+            // 自动检测路径（本地或GitHub Pages）
+            const basePath = window.location.pathname.includes('/review-dashboard/') ? '/review-dashboard/' : '/';
+            fetch(basePath + 'review_dashboard_with_non_task.json')
                 .then(response => response.json())
                 .then(data => {
                     reviewData = data.review_data;
