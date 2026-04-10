@@ -1608,10 +1608,9 @@
             }, 3000);
         });
 
-        // 访问量统计（使用免费的访问统计API）
+        // 访问量统计（统计总访问人次）
         function updatePageViews() {
-            // 使用免费的访问统计服务
-            const pageId = 'review-dashboard-claw-2026';
+            const pageId = 'review-dashboard-claw-total-visits';
             const url = `https://api.countapi.xyz/hit/${pageId}`;
             
             fetch(url)
@@ -1622,10 +1621,9 @@
                 })
                 .catch(error => {
                     console.log('访问统计加载失败，使用本地存储');
-                    // 备用方案：使用本地存储
-                    let views = localStorage.getItem('pageViews') || 0;
-                    views = parseInt(views) + 1;
-                    localStorage.setItem('pageViews', views);
+                    // 备用方案：使用本地存储统计总访问人次
+                    let views = parseInt(localStorage.getItem('totalPageViews') || 0) + 1;
+                    localStorage.setItem('totalPageViews', views);
                     document.getElementById('pageViews').textContent = views.toLocaleString();
                 });
         }
