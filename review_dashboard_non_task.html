@@ -683,6 +683,29 @@
             </div>
         </div>
 
+        <!-- 质检数据排名区域 -->
+        <div class="rank-section" style="background: linear-gradient(135deg, #fff 0%, #f0f8ff 100%);">
+            <h3 style="color: #4facfe;">🏆 质检数据排名</h3>
+            <div class="rank-table-container">
+                <table id="qualityRankTable">
+                    <thead>
+                        <tr>
+                            <th>质检排名</th>
+                            <th>姓名</th>
+                            <th>中文姓名</th>
+                            <th>质检总量</th>
+                            <th>错误数</th>
+                            <th>正确率</th>
+                            <th>审核量</th>
+                            <th>平均耗时</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- 排名区域 -->
         <div class="rank-section">
             <h3>🏆 排名榜单</h3>
@@ -698,9 +721,6 @@
                                 <th>中文姓名</th>
                                 <th>审核量</th>
                                 <th>平均耗时</th>
-                                <th>质检量</th>
-                                <th>质检正确率</th>
-                                <th>质检排名</th>
                                 <th>操作</th>
                             </tr>
                         </thead>
@@ -855,6 +875,7 @@
                     updateCharts(data);
                     updateReviewRank(data.review_data);
                     updateNonTaskRank(data.review_data);
+                    updateQualityRank(data.review_data);
                     updateTable(data.review_data);
                     showNotification('数据加载成功！', 'success');
 
@@ -905,6 +926,7 @@
             updateCharts(filteredData);
             updateReviewRank(filteredData.review_data);
             updateNonTaskRank(filteredData.review_data);
+            updateQualityRank(filteredData.review_data);
             updateTable(filteredData.review_data);
 
             // 更新日期范围信息
@@ -964,6 +986,7 @@
             updateCharts(originalData);
             updateReviewRank(originalData.review_data);
             updateNonTaskRank(originalData.review_data);
+            updateQualityRank(originalData.review_data);
             updateTable(originalData.review_data);
 
             // 重置日期范围信息
@@ -1273,8 +1296,6 @@
             const rows = sortedData.map((item, index) => {
                 const rankClass = index < 3 ? `rank-${index + 1}` : '';
                 const originalIndex = data.indexOf(item);
-                const qualityRate = item.质检正确率 ? (item.质检正确率 * 100).toFixed(2) + '%' : '-';
-                const qualityRank = item.质检排名 && item.质检排名 !== 999 ? item.质检排名 : '-';
                 return `
                     <tr class="${rankClass}">
                         <td><strong>${index + 1}</strong></td>
@@ -1282,10 +1303,38 @@
                         <td>${item.中文姓名 || 'N/A'}</td>
                         <td><strong>${item.人工审核量.toLocaleString()}</strong></td>
                         <td>${item.平均耗时.toFixed(2)}s</td>
-                        <td>${item.质检总量 || '-'}</td>
-                        <td>${qualityRate}</td>
-                        <td>${qualityRank}</td>
                         <td><button class="edit-btn" onclick="openEditModal(${originalIndex})">✏️ 编辑</button></td>
+                    </tr>
+                `;
+            }).join('');
+
+            tbody.innerHTML = rows;
+        }
+
+        // 更新质检数据排名
+        function updateQualityRank(data) {
+            const tbody = document.querySelector('#qualityRankTable tbody');
+            // 只显示有质检数据的人员，并按质检排名排序
+            const qualityData = data
+                .filter(item => item.质检总量 && item.质检总量 > 0)
+                .sort((a, b) => (a.质检排名 || 999) - (b.质检排名 || 999));
+
+            const rows = qualityData.map((item, index) => {
+                const rankClass = index < 3 ? `rank-${index + 1}` : '';
+                const qualityRate = item.质检正确率 ? (item.质检正确率 * 100).toFixed(2) + '%' : '-';
+                const qualityRank = item.质检排名 && item.质检排名 !== 999 ? item.质检排名 : '-';
+                const errorCount = item.质检错误数 || 0;
+                
+                return `
+                    <tr class="${rankClass}">
+                        <td><strong>${qualityRank}</strong></td>
+                        <td>${item.审核人}</td>
+                        <td>${item.中文姓名 || 'N/A'}</td>
+                        <td><strong>${item.质检总量.toLocaleString()}</strong></td>
+                        <td>${errorCount}</td>
+                        <td><strong>${qualityRate}</strong></td>
+                        <td>${item.人工审核量.toLocaleString()}</td>
+                        <td>${item.平均耗时.toFixed(2)}s</td>
                     </tr>
                 `;
             }).join('');
