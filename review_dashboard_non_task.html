@@ -628,6 +628,30 @@
             </div>
         </div>
 
+        <!-- 质检数据卡片 -->
+        <div class="summary-cards" style="margin-top: 20px;">
+            <div class="card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                <h3 style="color: white;">🔍 总质检量</h3>
+                <div class="value" id="totalQualityCheck" style="color: white;">0</div>
+                <div class="sub-value" style="color: rgba(255,255,255,0.8);">条</div>
+            </div>
+            <div class="card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                <h3 style="color: white;">✅ 质检正确率</h3>
+                <div class="value" id="avgQualityRate" style="color: white;">0%</div>
+                <div class="sub-value" style="color: rgba(255,255,255,0.8);">平均</div>
+            </div>
+            <div class="card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                <h3 style="color: white;">❌ 总错误数</h3>
+                <div class="value" id="totalErrors" style="color: white;">0</div>
+                <div class="sub-value" style="color: rgba(255,255,255,0.8);">条</div>
+            </div>
+            <div class="card" style="background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);">
+                <h3 style="color: white;">👥 质检人数</h3>
+                <div class="value" id="qualityPeople" style="color: white;">0</div>
+                <div class="sub-value" style="color: rgba(255,255,255,0.8);">人</div>
+            </div>
+        </div>
+
         <!-- 图表区域 -->
         <div class="charts-section">
             <div class="chart-card">
@@ -674,6 +698,9 @@
                                 <th>中文姓名</th>
                                 <th>审核量</th>
                                 <th>平均耗时</th>
+                                <th>质检量</th>
+                                <th>质检正确率</th>
+                                <th>质检排名</th>
                                 <th>操作</th>
                             </tr>
                         </thead>
@@ -804,12 +831,27 @@
         function loadData() {
             // 自动检测路径（本地或GitHub Pages）
             const basePath = window.location.pathname.includes('/review-dashboard/') ? '/review-dashboard/' : '/';
-            fetch(basePath + 'review_dashboard_with_non_task.json')
+            // 尝试加载新的质检数据文件，如果失败则回退到原文件
+            fetch(basePath + 'review_dashboard_with_quality_new.json')
+                .then(response => {
+                    if (!response.ok) {
+                        // 如果新文件不存在，尝试加载原文件
+                        return fetch(basePath + 'review_dashboard_with_non_task.json');
+                    }
+                    return response;
+                })
                 .then(response => response.json())
                 .then(data => {
                     reviewData = data.review_data;
                     originalData = data; // 保存原始完整数据
-                    updateSummary(data.summary);
+
+                    // 更新汇总数据（包含质检汇总）
+                    const summary = {
+                        ...data.summary,
+                        '质检汇总': data.质检汇总 || null
+                    };
+                    updateSummary(summary);
+
                     updateCharts(data);
                     updateReviewRank(data.review_data);
                     updateNonTaskRank(data.review_data);
@@ -817,7 +859,9 @@
                     showNotification('数据加载成功！', 'success');
 
                     // 设置日期选择器的默认值
-                    setDateRange(data.非任务时间.日期趋势);
+                    if (data.非任务时间 && data.非任务时间.日期趋势) {
+                        setDateRange(data.非任务时间.日期趋势);
+                    }
                 })
                 .catch(error => {
                     console.error('Error loading data:', error);
@@ -934,6 +978,15 @@
             document.getElementById('totalReview').textContent = summary['总审核量'].toLocaleString();
             document.getElementById('totalNonTask').textContent = summary['总非任务时长'].toFixed(2);
             document.getElementById('avgNonTask').textContent = summary['平均非任务时长'].toFixed(2);
+
+            // 更新质检数据汇总（如果有）
+            if (summary['质检汇总']) {
+                const qualitySummary = summary['质检汇总'];
+                document.getElementById('totalQualityCheck').textContent = qualitySummary['总质检量'].toLocaleString();
+                document.getElementById('avgQualityRate').textContent = (qualitySummary['平均正确率'] * 100).toFixed(2) + '%';
+                document.getElementById('totalErrors').textContent = qualitySummary['总错误数'].toLocaleString();
+                document.getElementById('qualityPeople').textContent = qualitySummary['质检人数'];
+            }
         }
 
         // 更新图表
@@ -1220,6 +1273,8 @@
             const rows = sortedData.map((item, index) => {
                 const rankClass = index < 3 ? `rank-${index + 1}` : '';
                 const originalIndex = data.indexOf(item);
+                const qualityRate = item.质检正确率 ? (item.质检正确率 * 100).toFixed(2) + '%' : '-';
+                const qualityRank = item.质检排名 && item.质检排名 !== 999 ? item.质检排名 : '-';
                 return `
                     <tr class="${rankClass}">
                         <td><strong>${index + 1}</strong></td>
@@ -1227,6 +1282,9 @@
                         <td>${item.中文姓名 || 'N/A'}</td>
                         <td><strong>${item.人工审核量.toLocaleString()}</strong></td>
                         <td>${item.平均耗时.toFixed(2)}s</td>
+                        <td>${item.质检总量 || '-'}</td>
+                        <td>${qualityRate}</td>
+                        <td>${qualityRank}</td>
                         <td><button class="edit-btn" onclick="openEditModal(${originalIndex})">✏️ 编辑</button></td>
                     </tr>
                 `;
