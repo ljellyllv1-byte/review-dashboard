@@ -526,12 +526,14 @@
         function loadData() {
             // 自动检测路径（本地或GitHub Pages）
             const basePath = window.location.pathname.includes('/review-dashboard/') ? '/review-dashboard/' : '/';
+            // 添加时间戳参数强制刷新缓存
+            const timestamp = new Date().getTime();
             // 尝试加载新的质检数据文件，如果失败则回退到原文件
-            fetch(basePath + 'review_dashboard_with_quality_new.json')
+            fetch(basePath + 'review_dashboard_with_quality_new.json?v=' + timestamp)
                 .then(response => {
                     if (!response.ok) {
                         // 如果新文件不存在，尝试加载原文件
-                        return fetch(basePath + 'review_dashboard_with_non_task.json');
+                        return fetch(basePath + 'review_dashboard_with_non_task.json?v=' + timestamp);
                     }
                     return response;
                 })
