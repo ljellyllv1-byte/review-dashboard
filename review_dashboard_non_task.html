@@ -892,15 +892,20 @@
 
         // 设置日期范围
         function setDateRange(dateTrend) {
-            if (dateTrend && dateTrend.length > 0) {
-                const dates = dateTrend.map(d => d.日期).sort();
-                document.getElementById('startDate').value = dates[0];
-                document.getElementById('endDate').value = dates[dates.length - 1];
-                document.getElementById('startDate').min = dates[0];
-                document.getElementById('startDate').max = dates[dates.length - 1];
-                document.getElementById('endDate').min = dates[0];
-                document.getElementById('endDate').max = dates[dates.length - 1];
-            }
+            // 从数据更新时间获取日期范围
+            const dataDate = data.summary?.数据日期 || data.summary?.更新时间 || new Date().toISOString().split('T')[0];
+            const dataDateStr = dataDate.split(' ')[0]; // 提取日期部分
+            
+            // 设置日期范围为当前月的第一天到数据日期
+            const dataDateObj = new Date(dataDateStr);
+            const firstDayOfMonth = new Date(dataDateObj.getFullYear(), dataDateObj.getMonth(), 1).toISOString().split('T')[0];
+            
+            document.getElementById('startDate').value = firstDayOfMonth;
+            document.getElementById('endDate').value = dataDateStr;
+            document.getElementById('startDate').min = firstDayOfMonth;
+            document.getElementById('startDate').max = dataDateStr;
+            document.getElementById('endDate').min = firstDayOfMonth;
+            document.getElementById('endDate').max = dataDateStr;
         }
 
         // 应用日期筛选
