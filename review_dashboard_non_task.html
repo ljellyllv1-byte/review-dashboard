@@ -528,9 +528,15 @@
             const basePath = window.location.pathname.includes('/review-dashboard/') ? '/review-dashboard/' : '/';
             // 添加时间戳参数强制刷新缓存
             const timestamp = new Date().getTime();
+
+            console.log('当前路径:', window.location.pathname);
+            console.log('检测到的基础路径:', basePath);
+            console.log('数据文件URL:', basePath + 'review_dashboard_with_quality_new.json');
+
             // 尝试加载新的质检数据文件，如果失败则回退到原文件
             fetch(basePath + 'review_dashboard_with_quality_new.json?v=' + timestamp)
                 .then(response => {
+                    console.log('HTTP状态码:', response.status);
                     if (!response.ok) {
                         // 如果新文件不存在，尝试加载原文件
                         return fetch(basePath + 'review_dashboard_with_non_task.json?v=' + timestamp);
@@ -562,7 +568,9 @@
                     }
                 })
                 .catch(error => {
-                    console.error('Error loading data:', error);
+                    console.error('数据加载失败:', error);
+                    console.error('错误详情:', error.message);
+                    alert('数据加载失败！\n\n错误信息: ' + error.message + '\n\n请按F12打开控制台查看详细信息，或刷新页面重试。');
                     showNotification('数据加载失败！', 'error');
                 });
         }
