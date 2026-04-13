@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据加载诊断</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #ddd;
+        }
+        .success { border-left-color: #4CAF50; }
+        .error { border-left-color: #f44336; }
+        .info { border-left-color: #2196F3; }
+        h1 { color: #333; }
+        h3 { margin: 5px 0; color: #666; }
+        pre { 
+            background: #f9f9f9; 
+            padding: 10px; 
+            border-radius: 3px; 
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 数据加载诊断工具</h1>
+    <div id="results"></div>
+    
+    <script>
+        const results = document.getElementById('results');
+        
+        function addTest(title, status, content) {
+            const div = document.createElement('div');
+            div.className = `test-item ${status}`;
+            div.innerHTML = `
+                <h3>${status === 'success' ? '✅' : status === 'error' ? '❌' : 'ℹ️'} ${title}</h3>
+                <div>${content}</div>
+            `;
+            results.appendChild(div);
+        }
+        
+        async function runDiagnostics() {
+            // 测试1: 检查当前路径
+            addTest('当前路径', 'info', `
+                <pre>window.location.pathname: ${window.location.pathname}</pre>
+                <pre>window.location.href: ${window.location.href}</pre>
+            `);
+            
+            // 测试2: 确定基础路径
+            const basePath = window.location.pathname.includes('/review-dashboard/') ? '/review-dashboard/' : '/';
+            addTest('基础路径', 'info', `<pre>${basePath}</pre>`);
+            
+            // 测试3: 尝试加载数据文件
+            const dataUrl = basePath + 'review_dashboard_with_quality_new.json';
+            addTest('数据文件URL', 'info', `<pre>${dataUrl}</pre>`);
+            
+            try {
+                const response = await fetch(dataUrl);
+                addTest('HTTP状态码', response.ok ? 'success' : 'error', `
+                    <pre>状态: ${response.status} ${response.statusText}</pre>
+                    <pre>Content-Type: ${response.headers.get('content-type')}</pre>
+                `);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    addTest('数据解析', 'success', `
+                        <pre>总人数: ${data.summary?.总人数 || 'N/A'}</pre>
+                        <pre>总审核量: ${data.summary?.总审核量 || 'N/A'}</pre>
+                        <pre>总非任务时长: ${data.summary?.总非任务时长 || 'N/A'}</pre>
+                        <pre>数据日期: ${data.summary?.数据日期 || 'N/A'}</pre>
+                        <pre>review_data 数量: ${data.review_data?.length || 0}</pre>
+                    `);
+                    
+                    if (data.review_data && data.review_data.length > 0) {
+                        addTest('第一条数据示例', 'success', `
+                            <pre>${JSON.stringify(data.review_data[0], null, 2)}</pre>
+                        `);
+                    }
+                } else {
+                    addTest('加载失败', 'error', `<pre>无法加载数据文件，HTTP ${response.status}</pre>`);
+                }
+            } catch (error) {
+                addTest('加载错误', 'error', `<pre>${error.message}\n\n${error.stack}</pre>`);
+            }
+            
+            // 测试4: 检查localStorage
+            addTest('LocalStorage', 'info', `
+                <pre>totalPageViews: ${localStorage.getItem('totalPageViews') || '未设置'}</pre>
+                <pre>dashboard_access: ${localStorage.getItem('dashboard_access') || '未设置'}</pre>
+            `);
+        }
+        
+        runDiagnostics();
+    </script>
+</body>
+</html>
