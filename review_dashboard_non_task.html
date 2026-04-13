@@ -576,20 +576,16 @@
 
         // 设置日期范围
         function setDateRange(dateTrend) {
-            // 从数据更新时间获取日期范围
-            const dataDate = originalData.summary?.数据日期 || originalData.summary?.更新时间 || new Date().toISOString().split('T')[0];
-            const dataDateStr = dataDate.split(' ')[0]; // 提取日期部分
-
-            // 设置日期范围为当前月的第一天到数据日期
-            const dataDateObj = new Date(dataDateStr);
-            const firstDayOfMonth = new Date(dataDateObj.getFullYear(), dataDateObj.getMonth(), 1).toISOString().split('T')[0];
-
-            document.getElementById('startDate').value = firstDayOfMonth;
-            document.getElementById('endDate').value = dataDateStr;
-            document.getElementById('startDate').min = firstDayOfMonth;
-            document.getElementById('startDate').max = dataDateStr;
-            document.getElementById('endDate').min = firstDayOfMonth;
-            document.getElementById('endDate').max = dataDateStr;
+            // 使用固定的数据周期：3.21-4.20
+            const cycleStart = '2026-03-21';
+            const cycleEnd = '2026-04-20';
+            
+            document.getElementById('startDate').value = cycleStart;
+            document.getElementById('endDate').value = cycleEnd;
+            document.getElementById('startDate').min = cycleStart;
+            document.getElementById('startDate').max = cycleEnd;
+            document.getElementById('endDate').min = cycleStart;
+            document.getElementById('endDate').max = cycleEnd;
         }
 
         // 应用日期筛选
