@@ -720,8 +720,8 @@
         // 去向分布图
         function updateDirectionChart(directionData) {
             const labels = Object.keys(directionData);
-            const hours = labels.map(label => directionData[label].总时长);
-            const counts = labels.map(label => directionData[label].记录数);
+            const hours = Object.values(directionData); // 直接取值（总时长）
+            const totalHours = hours.reduce((sum, h) => sum + h, 0);
 
             const ctx = document.getElementById('directionChart').getContext('2d');
 
