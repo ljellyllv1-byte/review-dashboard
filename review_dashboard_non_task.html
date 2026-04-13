@@ -33,43 +33,6 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
-        .upload-section {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .upload-section:hover {
-            transform: translateY(-5px);
-        }
-
-        .upload-area {
-            border: 2px dashed #667eea;
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .upload-area:hover {
-            background: #f0f4ff;
-            border-color: #764ba2;
-        }
-
-        .upload-area p {
-            color: #666;
-            margin: 10px 0;
-        }
-
-        .upload-icon {
-            font-size: 48px;
-            color: #667eea;
-        }
-
         .summary-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -249,218 +212,6 @@
         .tag-其他 { background: #96CEB4; }
         .tag-审核 { background: #FFEAA7; color: #333; }
 
-        /* 编辑按钮样式 */
-        .edit-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: all 0.3s ease;
-        }
-
-        .edit-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        /* 弹窗样式 */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 700px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: modalIn 0.3s ease;
-        }
-
-        @keyframes modalIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .modal-header h2 {
-            color: #667eea;
-            margin: 0;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #999;
-            transition: color 0.3s ease;
-        }
-
-        .close-btn:hover {
-            color: #f44336;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #666;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-
-        .direction-list {
-            margin-top: 15px;
-        }
-
-        .direction-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            background: #f9f9f9;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        .direction-item input {
-            width: calc(100% - 40px);
-        }
-
-        .direction-item .remove-btn {
-            background: #f44336;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-
-        .add-direction-btn {
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-            font-weight: 500;
-        }
-
-        .modal-footer {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 2px solid #f0f0f0;
-        }
-
-        .btn-cancel {
-            background: #f44336;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .btn-save {
-            background: linear-gradient(135deg, #4CAF50 0%, #45B7D1 100%);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .stat-card .value {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .stat-card .label {
-            font-size: 12px;
-            opacity: 0.9;
-        }
-
         /* 日期选择器样式 */
         .date-filter-section {
             background: white;
@@ -568,16 +319,6 @@
 <body>
     <div class="container">
         <h1>📊 要闻复审审核数据看板 - 非任务时间版</h1>
-
-        <!-- 上传区域 -->
-        <div class="upload-section">
-            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-                <div class="upload-icon">📁</div>
-                <h3>点击或拖拽上传审核数据CSV文件</h3>
-                <p>支持 .csv 格式，自动解析并更新看板</p>
-            </div>
-            <input type="file" id="fileInput" accept=".csv" style="display: none" onchange="handleFileUpload(event)">
-        </div>
 
         <!-- 日期筛选区域 -->
         <div class="date-filter-section">
@@ -715,14 +456,13 @@
                     <h4 style="color: #667eea; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid #f0f0f0;">📝 审核量排名</h4>
                     <table id="reviewRankTable">
                         <thead>
-                            <tr>
-                                <th>排名</th>
-                                <th>姓名</th>
-                                <th>中文姓名</th>
-                                <th>审核量</th>
-                                <th>平均耗时</th>
-                                <th>操作</th>
-                            </tr>
+                        <tr>
+                            <th>排名</th>
+                            <th>姓名</th>
+                            <th>中文姓名</th>
+                            <th>审核量</th>
+                            <th>平均耗时</th>
+                        </tr>
                         </thead>
                         <tbody>
                         </tbody>
@@ -734,15 +474,14 @@
                     <h4 style="color: #764ba2; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid #f0f0f0;">⏱️ 非任务时间排名</h4>
                     <table id="nonTaskRankTable">
                         <thead>
-                            <tr>
-                                <th>排名</th>
-                                <th>姓名</th>
-                                <th>中文姓名</th>
-                                <th>非任务时长(h)</th>
-                                <th>记录数</th>
-                                <th>平均时长(h)</th>
-                                <th>操作</th>
-                            </tr>
+                        <tr>
+                            <th>排名</th>
+                            <th>姓名</th>
+                            <th>中文姓名</th>
+                            <th>非任务时长(h)</th>
+                            <th>记录数</th>
+                            <th>平均时长(h)</th>
+                        </tr>
                         </thead>
                         <tbody>
                         </tbody>
@@ -758,7 +497,6 @@
                 <table id="detailTable">
                     <thead>
                         <tr>
-                            <th>操作</th>
                             <th>姓名</th>
                             <th>中文姓名</th>
                             <th>非任务总时长（小时）</th>
@@ -772,69 +510,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
-
-    <!-- 编辑弹窗 -->
-    <div class="modal" id="editModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>✏️ 编辑人员信息</h2>
-                <button class="close-btn" onclick="closeModal()">×</button>
-            </div>
-
-            <form id="editForm">
-                <input type="hidden" id="editIndex">
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>英文名</label>
-                        <input type="text" id="editName" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>中文名</label>
-                        <input type="text" id="editChineseName">
-                    </div>
-                </div>
-
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="value" id="statReview">0</div>
-                        <div class="label">审核量</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="value" id="statAvgTime">0s</div>
-                        <div class="label">平均耗时</div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>非任务总时长（小时）</label>
-                    <input type="number" id="editNonTaskTime" step="0.01">
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>记录数</label>
-                        <input type="number" id="editRecordCount">
-                    </div>
-                    <div class="form-group">
-                        <label>平均时长（小时）</label>
-                        <input type="number" id="editAvgTime" step="0.01">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>📍 非任务去向明细</label>
-                    <div id="directionList" class="direction-list"></div>
-                    <button type="button" class="add-direction-btn" onclick="addDirection()">➕ 添加去向</button>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn-cancel" onclick="closeModal()">取消</button>
-                    <button type="submit" class="btn-save">💾 保存修改</button>
-                </div>
-            </form>
         </div>
     </div>
 
@@ -1300,7 +975,6 @@
 
             const rows = sortedData.map((item, index) => {
                 const rankClass = index < 3 ? `rank-${index + 1}` : '';
-                const originalIndex = data.indexOf(item);
                 return `
                     <tr class="${rankClass}">
                         <td><strong>${index + 1}</strong></td>
@@ -1308,7 +982,6 @@
                         <td>${item.中文姓名 || 'N/A'}</td>
                         <td><strong>${item.人工审核量.toLocaleString()}</strong></td>
                         <td>${item.平均耗时.toFixed(2)}s</td>
-                        <td><button class="edit-btn" onclick="openEditModal(${originalIndex})">✏️ 编辑</button></td>
                     </tr>
                 `;
             }).join('');
@@ -1356,7 +1029,6 @@
 
             const rows = sortedData.map((item, index) => {
                 const rankClass = index < 3 ? `rank-${index + 1}` : '';
-                const originalIndex = data.indexOf(item);
                 return `
                     <tr class="${rankClass}">
                         <td><strong>${index + 1}</strong></td>
@@ -1365,7 +1037,6 @@
                         <td><strong>${item.非任务总时长.toFixed(2)}</strong></td>
                         <td>${item.非任务记录数}</td>
                         <td>${item.非任务平均时长.toFixed(2)}</td>
-                        <td><button class="edit-btn" onclick="openEditModal(${originalIndex})">✏️ 编辑</button></td>
                     </tr>
                 `;
             }).join('');
@@ -1389,7 +1060,6 @@
 
                 return `
                     <tr>
-                        <td><button class="edit-btn" onclick="openEditModal(${index})">✏️ 编辑</button></td>
                         <td>${item.审核人}</td>
                         <td>${item.中文姓名 || 'N/A'}</td>
                         <td><strong>${item.非任务总时长.toFixed(2)}</strong></td>
@@ -1403,94 +1073,6 @@
 
             tbody.innerHTML = rows;
         }
-
-        // 打开编辑弹窗
-        function openEditModal(index) {
-            const item = reviewData[index];
-
-            document.getElementById('editIndex').value = index;
-            document.getElementById('editName').value = item.审核人;
-            document.getElementById('editChineseName').value = item.中文姓名 || '';
-
-            // 填充统计卡片
-            document.getElementById('statReview').textContent = item.人工审核量.toLocaleString();
-            document.getElementById('statAvgTime').textContent = item.平均耗时.toFixed(2) + 's';
-
-            // 填充非任务时间信息
-            document.getElementById('editNonTaskTime').value = item.非任务总时长.toFixed(2);
-            document.getElementById('editRecordCount').value = item.非任务记录数;
-            document.getElementById('editAvgTime').value = item.非任务平均时长.toFixed(2);
-
-            // 填充去向明细
-            const directionList = document.getElementById('directionList');
-            directionList.innerHTML = '';
-            Object.entries(item.非任务去向 || {}).forEach(([direction, hours]) => {
-                addDirectionItem(direction, hours);
-            });
-
-            // 显示弹窗
-            document.getElementById('editModal').classList.add('active');
-        }
-
-        // 关闭弹窗
-        function closeModal() {
-            document.getElementById('editModal').classList.remove('active');
-        }
-
-        // 添加去向项
-        function addDirectionItem(direction = '', hours = 0) {
-            const directionList = document.getElementById('directionList');
-            const div = document.createElement('div');
-            div.className = 'direction-item';
-            div.innerHTML = `
-                <input type="text" placeholder="去向类别（如：开会-组内会）" class="direction-name" value="${direction}">
-                <input type="number" placeholder="时长" class="direction-hours" value="${hours}" step="0.01" style="width: 80px; margin-left: 10px;">
-                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">删除</button>
-            `;
-            directionList.appendChild(div);
-        }
-
-        // 添加新去向
-        function addDirection() {
-            addDirectionItem('', 0);
-        }
-
-        // 保存表单
-        document.getElementById('editForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const index = parseInt(document.getElementById('editIndex').value);
-            const item = reviewData[index];
-
-            // 更新基本信息
-            item.中文姓名 = document.getElementById('editChineseName').value || null;
-            item.非任务总时长 = parseFloat(document.getElementById('editNonTaskTime').value) || 0;
-            item.非任务记录数 = parseInt(document.getElementById('editRecordCount').value) || 0;
-            item.非任务平均时长 = parseFloat(document.getElementById('editAvgTime').value) || 0;
-
-            // 更新去向明细
-            const directionItems = document.querySelectorAll('.direction-item');
-            item.非任务去向 = {};
-
-            directionItems.forEach(div => {
-                const direction = div.querySelector('.direction-name').value.trim();
-                const hours = parseFloat(div.querySelector('.direction-hours').value) || 0;
-
-                if (direction && hours > 0) {
-                    item.非任务去向[direction] = hours;
-                }
-            });
-
-            // 更新看板
-            updateTable(reviewData);
-            updateReviewRank(reviewData);
-            updateNonTaskRank(reviewData);
-            updateCharts({ 非任务时间: calculateNonTaskStats() });
-
-            // 关闭弹窗并显示通知
-            closeModal();
-            showNotification('✅ 保存成功！数据已更新', 'success');
-        });
 
         // 计算非任务时间统计
         function calculateNonTaskStats() {
@@ -1524,40 +1106,6 @@
             return 'tag-其他';
         }
 
-        // 处理文件上传
-        function handleFileUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            Papa.parse(file, {
-                header: true,
-                skipEmptyLines: true,
-                complete: function(results) {
-                    processData(results.data);
-                    showNotification('文件上传成功！正在解析数据...', 'success');
-                },
-                error: function(error) {
-                    console.error('Error parsing CSV:', error);
-                    showNotification('文件解析失败！请检查文件格式。', 'error');
-                }
-            });
-
-            setTimeout(() => {
-                document.querySelector('.notification').style.display = 'none';
-            }, 3000);
-        }
-
-        // 处理CSV数据
-        function processData(data) {
-            // 这里可以添加数据处理逻辑
-            // 暂时只更新现有数据
-            showNotification('数据已更新！', 'success');
-
-            setTimeout(() => {
-                document.querySelector('.notification').style.display = 'none';
-            }, 3000);
-        }
-
         // 显示通知
         function showNotification(message, type) {
             const notification = document.getElementById('notification');
@@ -1569,49 +1117,6 @@
                 notification.style.display = 'none';
             }, 3000);
         }
-
-        // 拖拽上传支持
-        const uploadArea = document.querySelector('.upload-area');
-
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadArea.style.background = '#f0f4ff';
-            uploadArea.style.borderColor = '#764ba2';
-        });
-
-        uploadArea.addEventListener('dragleave', (e) => {
-            e.preventDefault();
-            uploadArea.style.background = 'white';
-            uploadArea.style.borderColor = '#667eea';
-        });
-
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadArea.style.background = 'white';
-            uploadArea.style.borderColor = '#667eea';
-
-            const file = e.dataTransfer.files[0];
-            if (file && file.name.endsWith('.csv')) {
-                Papa.parse(file, {
-                    header: true,
-                    skipEmptyLines: true,
-                    complete: function(results) {
-                        processData(results.data);
-                        showNotification('文件上传成功！正在解析数据...', 'success');
-                    },
-                    error: function(error) {
-                        console.error('Error parsing CSV:', error);
-                        showNotification('文件解析失败！请检查文件格式。', 'error');
-                    }
-                });
-            } else {
-                showNotification('请上传CSV格式的文件！', 'error');
-            }
-
-            setTimeout(() => {
-                document.querySelector('.notification').style.display = 'none';
-            }, 3000);
-        });
 
         // 访问量统计（统计总访问人次）
         function updatePageViews() {
