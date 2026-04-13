@@ -570,21 +570,20 @@
                 .catch(error => {
                     console.error('数据加载失败:', error);
                     console.error('错误详情:', error.message);
-                    alert('数据加载失败！\n\n错误信息: ' + error.message + '\n\n请按F12打开控制台查看详细信息，或刷新页面重试。');
-                    showNotification('数据加载失败！', 'error');
+                    showNotification('数据加载失败，请刷新页面重试', 'error');
                 });
         }
 
         // 设置日期范围
         function setDateRange(dateTrend) {
             // 从数据更新时间获取日期范围
-            const dataDate = data.summary?.数据日期 || data.summary?.更新时间 || new Date().toISOString().split('T')[0];
+            const dataDate = originalData.summary?.数据日期 || originalData.summary?.更新时间 || new Date().toISOString().split('T')[0];
             const dataDateStr = dataDate.split(' ')[0]; // 提取日期部分
-            
+
             // 设置日期范围为当前月的第一天到数据日期
             const dataDateObj = new Date(dataDateStr);
             const firstDayOfMonth = new Date(dataDateObj.getFullYear(), dataDateObj.getMonth(), 1).toISOString().split('T')[0];
-            
+
             document.getElementById('startDate').value = firstDayOfMonth;
             document.getElementById('endDate').value = dataDateStr;
             document.getElementById('startDate').min = firstDayOfMonth;
