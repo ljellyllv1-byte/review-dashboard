@@ -467,12 +467,6 @@
                     <canvas id="directionChart"></canvas>
                 </div>
             </div>
-            <div class="chart-card">
-                <h3>📊 非任务时间与审核量关系</h3>
-                <div class="chart-container">
-                    <canvas id="correlationChart"></canvas>
-                </div>
-            </div>
         </div>
 
         <div class="charts-section">
@@ -514,7 +508,7 @@
         // 全局变量
         let reviewData = [];
         let originalData = []; // 保存原始数据
-        let directionChart, trendChart, correlationChart, proportionChart;
+        let directionChart, proportionChart;
 
         // 加载初始数据
         function loadData() {
@@ -670,6 +664,7 @@
             updateQualityRank(originalData.review_data);
             updateTable(originalData.review_data);
 
+
             // 重置日期范围信息
             document.getElementById('dateRangeInfo').innerHTML = '当前显示：<strong>全部数据</strong>';
 
@@ -695,16 +690,9 @@
 
         // 更新图表
         function updateCharts(data) {
-            // 1. 去向分布图
+            // 去向分布
             updateDirectionChart(data.非任务时间.去向分布);
-
-            // 2. 日期趋势图
-            updateTrendChart(data.非任务时间.日期趋势);
-
-            // 3. 非任务时间与审核量关系图
-            updateCorrelationChart(data.review_data);
-
-            // 4. 非任务时间占比分析
+            // 占比分析
             updateProportionChart(data.review_data);
         }
 
