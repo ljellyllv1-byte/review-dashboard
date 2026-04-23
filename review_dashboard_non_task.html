@@ -576,9 +576,11 @@
 
         // 设置日期范围
         function setDateRange(dateTrend) {
-            // 使用固定的数据周期：3.21-4.20
-            const cycleStart = '2026-03-21';
-            const cycleEnd = '2026-04-20';
+            // 根据数据动态设置日期范围
+            if (!dateTrend || !dateTrend.length) return;
+            const dates = dateTrend.map(d => d.日期).sort();
+            const cycleStart = dates[0];
+            const cycleEnd = dates[dates.length - 1];
             
             document.getElementById('startDate').value = cycleStart;
             document.getElementById('endDate').value = cycleEnd;
