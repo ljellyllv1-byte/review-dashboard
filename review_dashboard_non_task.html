@@ -393,31 +393,6 @@
             </div>
         </div>
 
-        <!-- 图表区域 -->
-        <div class="charts-section">
-            <div class="chart-card">
-                <h3>🎯 非任务时间去向分布（总体）</h3>
-                <div class="chart-container">
-                    <canvas id="directionChart"></canvas>
-                </div>
-            </div>
-            <div class="chart-card">
-                <h3>📊 非任务时间与审核量关系</h3>
-                <div class="chart-container">
-                    <canvas id="correlationChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div class="charts-section">
-            <div class="chart-card">
-                <h3>🎯 非任务时间占比分析</h3>
-                <div class="chart-container">
-                    <canvas id="proportionChart"></canvas>
-                </div>
-            </div>
-        </div>
-
         <!-- 质检数据排名区域 -->
         <div class="rank-section" style="background: linear-gradient(135deg, #fff 0%, #f0f8ff 100%);">
             <h3 style="color: #4facfe;">🏆 质检数据排名</h3>
@@ -441,7 +416,7 @@
             </div>
         </div>
 
-        <!-- 排名区域 -->
+        <!-- 排名区域（上移至图表前） -->
         <div class="rank-section">
             <h3>🏆 排名榜单</h3>
             <div class="rank-grid">
@@ -480,6 +455,31 @@
                         <tbody>
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 图表区域 -->
+        <div class="charts-section">
+            <div class="chart-card">
+                <h3>🎯 非任务时间去向分布（总体）</h3>
+                <div class="chart-container">
+                    <canvas id="directionChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>📊 非任务时间与审核量关系</h3>
+                <div class="chart-container">
+                    <canvas id="correlationChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-section">
+            <div class="chart-card">
+                <h3>🎯 非任务时间占比分析</h3>
+                <div class="chart-container">
+                    <canvas id="proportionChart"></canvas>
                 </div>
             </div>
         </div>
