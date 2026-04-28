@@ -566,7 +566,7 @@
         function setDateRange(dateTrend) {
             // 根据数据动态设置日期范围
             if (!dateTrend || !dateTrend.length) return;
-            const dates = dateTrend.map(d => d.日期).sort();
+            const dates = dateTrend.map(d => d.date || d.日期).filter(Boolean).sort();
             const cycleStart = dates[0];
             const cycleEnd = dates[dates.length - 1];
             
@@ -621,12 +621,14 @@
             });
 
             // 筛选日期趋势数据
-            const filteredDateTrend = data.非任务时间.日期趋势.filter(item => {
-                return item.日期 >= startDate && item.日期 <= endDate;
+            const dateTrendArr = data.非任务时间.日期趋势 || data.非任务时间.dateTrend || [];
+            const filteredDateTrend = dateTrendArr.filter(item => {
+                const d = item.date || item.日期;
+                return d >= startDate && d <= endDate;
             });
 
             // 重新计算汇总数据
-            const totalNonTaskTime = filteredDateTrend.reduce((sum, item) => sum + item.时长, 0);
+            const totalNonTaskTime = filteredDateTrend.reduce((sum, item) => sum + (item.non_task_hours || item.时长 || 0), 0);
             const avgNonTaskTime = filteredDateTrend.length > 0 ? totalNonTaskTime / filteredDateTrend.length : 0;
 
             // 筛选去向分布（需要重新计算）
