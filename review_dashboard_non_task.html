@@ -474,7 +474,7 @@
             console.log('检测到的基础路径:', basePath);
             console.log('数据文件URL:', basePath + 'review_dashboard_with_quality_new.json');
 
-            // 尝试加载新的质检数据文件，如果失败则回退到原文件
+            // 加载看板数据文件
             fetch(basePath + 'review_dashboard_with_quality_new.json?v=' + timestamp)
                 .then(response => {
                     console.log('HTTP状态码:', response.status);
