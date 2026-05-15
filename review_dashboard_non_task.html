@@ -365,11 +365,6 @@
                 <div class="value" id="avgNonTask">0</div>
                 <div class="sub-value">小时/人</div>
             </div>
-            <div class="card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                <h3 style="color: white;">👁️ 页面访问量</h3>
-                <div class="value" id="pageViews" style="color: white;">加载中...</div>
-                <div class="sub-value" style="color: rgba(255,255,255,0.8);">次访问</div>
-            </div>
         </div>
 
         <!-- 排名区域 -->
@@ -1019,30 +1014,9 @@
             }, 3000);
         }
 
-        // 访问量统计（统计总访问人次）
-        function updatePageViews() {
-            const pageId = 'review-dashboard-claw-total-visits';
-            const url = `https://api.countapi.xyz/hit/${pageId}`;
-            
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    const count = data.value || 0;
-                    document.getElementById('pageViews').textContent = count.toLocaleString();
-                })
-                .catch(error => {
-                    console.log('访问统计加载失败，使用本地存储');
-                    // 备用方案：使用本地存储统计总访问人次
-                    let views = parseInt(localStorage.getItem('totalPageViews') || 0) + 1;
-                    localStorage.setItem('totalPageViews', views);
-                    document.getElementById('pageViews').textContent = views.toLocaleString();
-                });
-        }
-
         // 页面加载完成后加载数据
         window.onload = function() {
             loadData();
-            updatePageViews();
         };
     </script>
 </body>
